@@ -20,42 +20,53 @@ namespace CreateCloudService
         
         static async Task Main(string[] args)
         {
-            var creds = LoginUsingAAD();
+            var creds = new LoginHelper();
             m_subId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
             m_ResourcesClient = new ResourceManagementClient(creds);
             m_NrpClient = new NetworkManagementClient(creds);
             m_CrpClient = new ComputeManagementClient(creds);
             m_SrpClient = new StorageManagementClient(creds);
+            m_ResourcesClient.SubscriptionId = m_subId;
+            m_NrpClient.SubscriptionId = m_subId;
+            m_CrpClient.SubscriptionId = m_subId;
+            m_SrpClient.SubscriptionId = m_subId;
 
-            // Create Resource Group
-            Console.WriteLine("--------Start create group--------");
-            var resourceGroups = m_ResourcesClient.ResourceGroups;
-            
+            // Initialize variable names
             var rgName = "QuickStartRG";
             var resourceGroup = new ResourceGroup(m_location);
             var csName = "ContosoCS";
             string cloudServiceName = "HelloWorldTest_WebRole";
-            string publicIPAddressName = "ContosoCSpip";
-            string vnetName = "Contosocsvnet";
-            string subnetName = "Contososubnet";
-            string dnsName = "Contosodns";
-            string lbName = "Contosolb";
-            string lbfeName = "Contosolbfe";
+            string publicIPAddressName = "contosoCSpip1";
+            string vnetName = "contosocsvnet1";
+            string subnetName = "contososubnet1";
+            string dnsName = "contosodns1";
+            string lbName = "contosolb1";
+            string lbfeName = "contosolbfe1";
             string roleInstanceSize = "Standard_D2_v2";
+
+            // Create Resource Group
+            Console.WriteLine("--------Start create group--------");
+            var resourceGroups = m_ResourcesClient.ResourceGroups;        
             resourceGroup = await resourceGroups.CreateOrUpdateAsync(rgName, resourceGroup);
             Console.WriteLine("--------Finish create group--------");
 
+            // Create Resource Group
+            Console.WriteLine("--------Creating Virtual Network--------");
             CreateVirtualNetwork(rgName, vnetName, subnetName);
-            PublicIPAddress publicIPAddress = CreatePublicIP(publicIPAddressName, rgName, dnsName);
+            Console.WriteLine("--------Finish Virtual Network--------");
 
-            // Define Configurations
+            Console.WriteLine("--------Creating Public IP--------");
+            PublicIPAddress publicIPAddress = CreatePublicIP(publicIPAddressName, rgName, dnsName);
+            Console.WriteLine("--------Finish Public IP--------");
+
+            // Define Configurations to add roles
             Dictionary<string, RoleConfiguration> roleNameToPropertiesMapping = new Dictionary<string, RoleConfiguration>
             {
                 { "HelloWorldTest1", new RoleConfiguration { InstanceCount = 1, RoleInstanceSize =  roleInstanceSize} }
             };
 
             ///
-            /// Create: Create a multi-role CloudService with 2 WorkerRoles, 1 WebRole, and RDP Extension.
+            /// Create: Create 1 WebRole, and RDP Extension.
             ///
 
             string rdpExtensionPublicConfig = "<PublicConfig>" +
@@ -70,6 +81,7 @@ namespace CreateCloudService
                                                                                               publicConfig: rdpExtensionPublicConfig,
                                                                                               privateConfig: rdpExtensionPrivateConfig);
 
+            // Generate Cloud Service Object
             CloudService cloudService = GenerateCloudServiceWithNetworkProfile(
                 resourceGroupName: rgName,
                 serviceName: cloudServiceName,
@@ -81,21 +93,30 @@ namespace CreateCloudService
                         lbName: lbName,
                         lbFrontendName: lbfeName);
 
+            // Add Extension Profile 
             cloudService.Properties.ExtensionProfile = new CloudServiceExtensionProfile()
             {
                 Extensions = new List<Extension>()
+                {
+                    rdpExtension
+                }
             };
-            cloudService.Properties.ExtensionProfile.Extensions.Add(rdpExtension);
+
+            // Create Cloud Service
+            Console.WriteLine("--------Creating Cloud Service--------");
             CloudService getResponse = CreateCloudService_NoAsyncTracking(
             rgName,
             csName,
             cloudService);
+            Console.WriteLine("--------Finish Cloud Service--------");
 
-            // Delete resource group if necessary
-            //Console.WriteLine("--------Start delete group--------");
-            // await (await resourceGroups.BeginDeleteAsync(rgName)).WaitForCompletionAsync();
-            //Console.WriteLine("--------Finish delete group--------");
-            //Console.ReadKey();
+            Console.WriteLine(getResponse.ToString());
+
+            //Delete resource group 
+            Console.WriteLine("--------Start delete group--------");
+            await resourceGroups.DeleteAsync(rgName);
+            Console.WriteLine("--------Finish delete group--------");
+            Console.ReadKey();
         }
 
     }

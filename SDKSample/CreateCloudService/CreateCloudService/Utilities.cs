@@ -87,7 +87,9 @@ namespace CreateCloudService
 
                 var stoInput = new StorageAccountCreateParameters
                 {
-                    Location = m_location
+                    Location = m_location,
+                    Kind = Microsoft.Azure.Management.Storage.Models.Kind.StorageV2,
+                    Sku = new Microsoft.Azure.Management.Storage.Models.Sku(SkuName.StandardRAGRS),
                 };
 
                 StorageAccount storageAccountOutput = m_SrpClient.StorageAccounts.Create(rgName,
@@ -119,7 +121,7 @@ namespace CreateCloudService
             string applicationMediaLink = "";
 
             var accountKeyResult = m_SrpClient.StorageAccounts.ListKeysWithHttpMessagesAsync(rgName, storageAccountName).Result;
-            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(storageAccountName, accountKeyResult.Body.Keys.FirstOrDefault().KeyName), useHttps: true);
+            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(storageAccountName, accountKeyResult.Body.Keys.FirstOrDefault().Value), useHttps: true);
 
             var blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("sascontainer");

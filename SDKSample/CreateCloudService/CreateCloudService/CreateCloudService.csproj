@@ -18,5 +18,11 @@
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Resources/*.cspkg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
