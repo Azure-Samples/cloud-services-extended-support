@@ -88,12 +88,12 @@ If you don't have an Azure subscription, create a [free account] before you begi
 1. Clone the repository on your machine:
 
 ```bash
-git clone https://github.com/Azure-Samples/azure-samples-net-management.git
+git clone https://github.com/Azure-Samples/cloud-services-extended-support.git
 ```
 
 2. Switch to the project folder:
 ```bash
-cd samples/compute/create-virtual-machine
+cd SDKSample\CreateCloudService\CreateCloudService
 ```
 
 3. Run the application with the `dotnet run` command.
@@ -107,6 +107,8 @@ dotnet run
 - Create a Virtual Network.
 - Create a IP Address.
 - Create a Cloud Service with RDPExtension.
+- Get Cloud Service
+- Delete Cloud Service
 
 ## More information
 
