@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cloudServiceName": {
+      "value": "contosocscertificate"
+    },
+    "location": {
+      "value": "centralus"
+    },
+    "deploymentLabel": {
+      "value": "contosocssinglerolecertificate_2021-01-24T235613"
+    },
+    "packageSasUri": {
+      "value": "https://gc15jan1stg.blob.core.windows.net/gc25jan/ContosoCSsinglerolenew.cspkg?sp=r&st=2021-01-24T19:48:17Z&se=2021-01-25T03:48:17Z&spr=https&sv=2019-12-12&sr=b&sig=GawMOZFpG7fSBfm67YALC2r4I9pYHV0mhTtJ1kTDEZk%3D"
+    },
+    "configurationSasUri": {
+      "value": "https://gc15jan1stg.blob.core.windows.net/gc25jan/ServiceConfiguration.Cloud.cscfg?sp=r&st=2021-01-24T19:47:47Z&se=2021-01-25T03:47:47Z&spr=https&sv=2019-12-12&sr=b&sig=gN7X9wxkJ9slx22yX7Y2Nn8p65NJQ%2B6LOv3X7Duqvno%3D"
+    },
+    
+    "roles": {
+      "value": [
+        {
+          "name": "WebRole1",
+          "sku": {
+            "name": "Standard_D1_v2",
+            "capacity": "1"
+          }
+        }
+      ]
+    },
+    "secrets": {
+      "value": [
+        {
+          "sourceVault": {
+            "id": "/subscriptions/47ff8d6e-e419-464f-8940-dfa750f2115d/resourceGroups/gc15jan1/providers/Microsoft.KeyVault/vaults/gc15jan1kv"
+          },
+          "vaultCertificates": [
+            {
+              "certificateUrl": "https://gc15jan1kv.vault.azure.net/secrets/3BFC4E04C034E21B852A8D18B4FF47955338FEE9/dd954a5e75e7475d87f61120cf819184"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
