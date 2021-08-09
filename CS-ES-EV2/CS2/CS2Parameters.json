@@ -7,7 +7,7 @@
 			"value": "<?xml version=\"1.0\" encoding=\"utf-8\"?> <ServiceConfiguration serviceName=\"SimpleCloudService\" xmlns=\"http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration\" osFamily=\"6\" osVersion=\"*\" schemaVersion=\"2015-04.2.6\">  <Role name=\"SimpleCloudService_WorkerRole\">   <Instances count=\"1\" />   <ConfigurationSettings>      <Setting name=\"Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString\" value=\"UseDevelopmentStorage=true\" />    </ConfigurationSettings>  </Role>  <NetworkConfiguration>    <VirtualNetworkSite name=\"netNewTestVnet\" />    <AddressAssignments>         <VirtualIPs>\t  <VirtualIP name=\"IP2\" ipVersion=\"IPv4\">\t\t\t  <Endpoints>\t\t\t\t<Endpoint role=\"SimpleCloudService_WorkerRole\" name=\"NatEndpoint\" />\t\t\t  </Endpoints>\t\t  </VirtualIP>\t\t</VirtualIPs>\r\n<InstanceAddress roleName=\"SimpleCloudService_WorkerRole\">        <Subnets>        <Subnet name=\"default\" />        </Subnets>      </InstanceAddress>          <ReservedIPs>    <ReservedIP name=\"pip-production\" virtualIpName=\"IP2\"/>      </ReservedIPs>   </AddressAssignments>\r\n  </NetworkConfiguration>\r\n</ServiceConfiguration>"
 		},
 		"subscriptionId": {
-			"value": "5833e0eb-b53c-4156-b478-2eac8f04aec6"
+			"value": "<susbciption-id>"
 		},
 		"role1InstanceCount": {
 			"value": 1

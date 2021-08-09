@@ -160,8 +160,8 @@
 					]
 				},
 				"networkProfile": {
-				  "SwappableCloudService": {
-					"id": "/subscriptions/5833e0eb-b53c-4156-b478-2eac8f04aec6/resourceGroups/VipSwapRgOne/providers/Microsoft.Compute/cloudServices/cs-staging"
+					"SwappableCloudService": {
+						"id": "/subscriptions/<susbciption-id>/resourceGroups/VipSwapRgOne/providers/Microsoft.Compute/cloudServices/cs-staging"
 					},
 					"loadBalancerConfigurations": [
 						{

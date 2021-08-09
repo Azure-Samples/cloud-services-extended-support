@@ -26,7 +26,7 @@
         "azureResourceGroupName": "VipSwapRgTwo",
         "location": "Central US Euap",
         "instanceOf": "CloudServiceGroupGroup2",
-        "azureSubscriptionId": "5833e0eb-b53c-4156-b478-2eac8f04aec6",
+        "azureSubscriptionId": "<susbciption-id>",
         "serviceResources": [
           {
             "name": "CloudService1Canary",
