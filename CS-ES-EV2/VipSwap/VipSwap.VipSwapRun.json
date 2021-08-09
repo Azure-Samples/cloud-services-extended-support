@@ -17,14 +17,14 @@
         "command": [
           "pwsh",
           "VipSwap.ps1",
-          "5833e0eb-b53c-4156-b478-2eac8f04aec6",
+          "<susbciption-id>",
           "VipSwapRgOne",
           "cs-staging"
         ],
         "identity": {
           "type": "UserAssigned",
           "userAssignedIdentities": [
-            "/subscriptions/5833e0eb-b53c-4156-b478-2eac8f04aec6/resourceGroups/rg-cloudservice-identity/providers/Microsoft.ManagedIdentity/userAssignedIdentities/VipSwapServiceIdentity"
+            "/subscriptions/<susbciption-id>/resourceGroups/rg-cloudservice-identity/providers/Microsoft.ManagedIdentity/userAssignedIdentities/VipSwapServiceIdentity"
           ]
         }
       }
