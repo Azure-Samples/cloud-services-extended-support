@@ -38,30 +38,6 @@
         "description": "Roles created in the cloud service application"
       }
     },
-    "wadPublicConfig_WebRole1": {
-      "type": "string",
-      "metadata": {
-        "description": "Public configuration of Windows Azure Diagnostics extension"
-      }
-    },
-    "wadPrivateConfig_WebRole1": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Private configuration of Windows Azure Diagnostics extension"
-      }
-    },
-    "wadPublicConfig_WorkerRole1": {
-      "type": "string",
-      "metadata": {
-        "description": "Public configuration of Windows Azure Diagnostics extension"
-      }
-    },
-    "wadPrivateConfig_WorkerRole1": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Private configuration of Windows Azure Diagnostics extension"
-      }
-    },
     "rdpPublicConfig": {
       "type": "string",
       "metadata": {
