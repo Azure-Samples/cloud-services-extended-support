@@ -1,0 +1,35 @@
+{
+	"cs1": {
+		"value": "csOne"
+	},
+	"cs2": {
+		"value": "csTwo"
+	},
+	"location": {
+		"value": "EastUS2Euap"
+	},
+	"role1VmSize": {
+		"value": "Standard_D3_v2"
+	},
+	"role1Name": {
+		"value": "SimpleCloudService_WorkerRole"
+	},
+	"role1InstanceCount": {
+		"value": 1
+	},
+	"role1VmTier": {
+		"value": "Standard"
+	},
+	"cs1Rg": {
+		"value": "VipSwapRgOne"
+	},
+	"cs2Rg": {
+		"value": "VipSwapRgTwo"
+	},
+	"stagingCsRg": {
+		"value": "VipSwapRgOne"
+	},
+	"productionCsRg": {
+		"value": "VipSwapRgTwo"
+	}
+}

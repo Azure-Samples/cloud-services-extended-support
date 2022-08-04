@@ -1,0 +1,118 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cs1": {
+      "type": "string",
+      "metadata": {
+        "description": "First Cloud Service"
+      }
+    },
+    "cs2": {
+      "type": "string",
+      "metadata": {
+        "description": "Second Cloud Service"
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Cloud services location"
+      }
+    },
+    "role1Name": {
+      "type": "string",
+      "metadata": {
+        "description": "Role1 Name in Cloud Service"
+      }
+    },
+    "role1InstanceCount": {
+      "type": "int",
+      "metadata": {
+        "description": "Number of VM instances in Role1 of Cloud Service"
+      }
+    },
+    "role1VmTier": {
+      "type": "string",
+      "metadata": {
+        "description": "Tier of the VM - Basic or Standard"
+      }
+    },
+    "role1VmSize": {
+      "type": "string",
+      "metadata": {
+        "description": "size of the vm used for the cloudService"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "Detect-Staging-CloudService",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [],
+          "outputs": {
+            "stagingCloudService": {
+              "type": "string",
+              "value": "[if(equals(reference(resourceId('Microsoft.Compute/cloudServices', parameters('cs1')), '2022-04-04', 'Full').properties.networkProfile.SlotType, 'Staging'), parameters('cs1'), parameters('cs2'))]"
+            },
+            "productionCloudService": {
+              "type": "string",
+              "value": "[if(equals(reference(resourceId('Microsoft.Compute/cloudServices', parameters('cs1')), '2022-04-04', 'Full').properties.networkProfile.SlotType, 'Production'), parameters('cs1'), parameters('cs2'))]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "DeployStagingCloudService",
+      "properties": {
+        "mode": "Incremental",
+
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "apiVersion": "2022-04-04",
+              "type": "Microsoft.Compute/cloudServices",
+              "name": "[reference('Detect-Staging-CloudService').outputs.stagingCloudService.value]",
+              "location": "[parameters('location')]"
+            },
+            {
+              "apiVersion": "2022-05-01",
+              "type": "Microsoft.Network/cloudServiceSlots",
+              "name": "swap",
+              "scope": "[concat('Microsoft.Compute/cloudServices/', reference('Detect-Staging-CloudService').outputs.stagingCloudService.value)]",
+              "dependsOn": [
+                "[concat('Microsoft.Compute/cloudservices/', reference('Detect-Staging-CloudService').outputs.stagingCloudService.value)]"
+              ],
+              "properties": {
+                "slotType": "Production"
+              }
+            },
+            {
+              "apiVersion": "2022-04-04",
+              "type": "Microsoft.Compute/cloudServices",
+              "name": "[reference('Detect-Staging-CloudService').outputs.productionCloudService.value]",
+              "location": "[parameters('location')]",
+              "dependsOn": [
+                "[concat('Microsoft.Network/cloudServiceSlots/', 'swap')]"
+              ],
+              "properties": {
+                "startCloudService": false
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
