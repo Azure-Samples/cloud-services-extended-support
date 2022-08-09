@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+
+	"parameters": {
+		"cspkgBlobPath": {
+			"value": "<cspkg-blob-path>"
+		},
+		"cscfgEncoded": {
+			"value": "<cscfg-encoded>"
+		},
+		"subscriptionId": {
+			"value": "<subscription-id>"
+		},
+		"role1InstanceCount": {
+			"value": 1
+		},
+		"vnetName": {
+			"value": "netNewTestVnet"
+		},
+		"subnetName": {
+			"value": "default"
+		},
+		"role1VmSize": {
+			"value": "Standard_D3_v2"
+		},
+		"cloudServiceName": {
+			"value": "csOne"
+		},
+		"upgradeMode": {
+			"value": "Auto"
+		},
+		"role1Name": {
+			"value": "SimpleCloudService_WorkerRole"
+		},
+		"lbName": {
+			"value": "lbOne"
+		},
+		"lbfeName": {
+			"value": "lbfeOne"
+		},
+		"publicIPName": {
+			"value": "pipOne"
+		},
+		"dnsName": {
+			"value": "dns1"
+		},
+		"addressPrefixes": {
+			"value": "<subnet-addressPrefixes>"
+		}
+	}
+}

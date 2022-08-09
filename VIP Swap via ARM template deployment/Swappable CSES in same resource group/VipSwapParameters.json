@@ -1,0 +1,19 @@
+{
+	"location": {
+		"value": "EastUS2Euap"
+	},
+	"role1VmSize": {
+		"value": "Standard_D3_v2"
+	},
+	"role1Name":
+	{
+		"value": "SimpleCloudService_WorkerRole"
+	},
+	"role1InstanceCount": {
+		"value": 1
+	},
+	"role1VmTier":
+	{
+		"value": "Standard"
+	}
+}

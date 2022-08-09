@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ev2schema.azure.net/schemas/2020-01-01/serviceModel.json",
+  "serviceMetadata": {
+    "serviceGroup": "CSES1",
+    "environment": "Test"
+  },
+  "serviceResourceGroupDefinitions": [
+    {
+      "name": "VipSwapGroup",
+      "serviceResourceDefinitions": [
+        {
+          "name": "VipSwap",
+          "composedOf": {
+            "arm": {
+              "templatePath": "VipSwapTemplate.json",
+              "parametersPath": "VipSwapParameters.json",
+              "deploymentLevel": "ResourceGroup"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "serviceResourceGroups": [
+    {
+      "azureResourceGroupName": "VipSwapRgOne",
+      "location": "East US 2 Euap",
+      "instanceOf": "VipSwapGroup",
+      "azureSubscriptionId": "<subscription-id>",
+      "serviceResources": [
+        {
+          "name": "VipSwapCS",
+          "instanceOf": "VipSwap"
+        }
+      ]
+    }
+  ]
+}

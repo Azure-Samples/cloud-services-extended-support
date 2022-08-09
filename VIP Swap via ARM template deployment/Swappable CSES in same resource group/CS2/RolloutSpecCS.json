@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ev2schema.azure.net/schemas/2020-01-01/rolloutSpecification.json",
+  "rolloutMetadata": {
+    "serviceModelPath": "ServiceModelCS.json",
+    "name": "CS-ES East US 2 Euap",
+    "rolloutType": "Major",
+    "buildSource": { "parameters": { "versionFile": "buildver.txt" } },
+    "notification": { "email": { "to": "<your-email>" } }
+  },
+  "orchestratedsteps": [
+    {
+      "name": "CS2Spec",
+      "targetType": "ServiceResourceGroup",
+      "targetName": "VipSwapRgTwo",
+      "actions": [ "deploy" ]
+    }
+  ]
+}
